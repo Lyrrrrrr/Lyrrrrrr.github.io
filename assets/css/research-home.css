@@ -81,7 +81,6 @@ sub { line-height: 0; }
 .cv h2 { margin-bottom: .9rem; font-size: 2rem; }
 .cv section p { margin-top: .45rem; }
 .cv .cv-detail { font-size: .9rem; }
-.cv section .text-link { display: inline-block; margin-top: .65rem; }
 .cv > p:last-child { margin-top: 1rem; }
 .publications p, .research-page > p { margin-top: 1rem; color: var(--muted); }
 .research-page h2 { margin-bottom: .65rem; font-size: clamp(1.6rem, 4vw, 2rem); }
