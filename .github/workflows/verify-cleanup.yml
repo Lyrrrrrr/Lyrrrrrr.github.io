@@ -1,0 +1,139 @@
+name: Verify site cleanup
+on:
+  push:
+    branches: [verify-site-cleanup]
+permissions:
+  contents: read
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dbcfdf898e75e4ea781d2d7f98114d73c96fd354
+          path: baseline
+      - uses: actions/checkout@v4
+        with:
+          ref: 8ad488a783a2d43a49868aa0030899105c4097ce
+          path: candidate
+      - name: Build original site
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./baseline
+          destination: ./baseline-site
+      - name: Build cleaned site
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./candidate
+          destination: ./candidate-site
+      - name: Compare pages, navigation, redirects and CSS
+        run: |
+          python - <<'PY'
+          import base64
+          import pathlib
+          import re
+          from html.parser import HTMLParser
+          from urllib.parse import urlsplit
+          
+          old = pathlib.Path("baseline-site")
+          new = pathlib.Path("candidate-site")
+          routes = ["index.html", "research/index.html", "projects/index.html", "publications/index.html", "cv/index.html", "404.html", "about/index.html", "about.html", "resume.html"]
+          
+          def normalized(path):
+              return re.sub(r'(/assets/css/research-home\.css)\?v=\d+', r'\1?v=BUILD_TIME', path.read_text(encoding="utf-8"))
+          
+          class Page(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.links = []
+                  self.ids = set()
+                  self.nav = []
+                  self.in_nav = False
+              def handle_starttag(self, tag, attributes):
+                  attrs = dict(attributes)
+                  if "id" in attrs:
+                      self.ids.add(attrs["id"])
+                  if tag == "nav" and attrs.get("aria-label") == "Primary navigation":
+                      self.in_nav = True
+                  if tag == "a" and "href" in attrs:
+                      self.links.append(attrs["href"])
+                      if self.in_nav:
+                          self.nav.append(attrs["href"])
+                  if tag in ("link", "img") and (attrs.get("href") or attrs.get("src")):
+                      self.links.append(attrs.get("href") or attrs["src"])
+              def handle_endtag(self, tag):
+                  if tag == "nav":
+                      self.in_nav = False
+          
+          for name in routes:
+              assert (old / name).is_file(), f"Missing baseline route {name}"
+              assert (new / name).is_file(), f"Missing cleaned route {name}"
+              assert normalized(old / name) == normalized(new / name), f"Rendered HTML changed: {name}"
+              print("Identical rendered HTML:", name)
+          
+          for name in routes[:6]:
+              page = Page()
+              page.feed((new / name).read_text(encoding="utf-8"))
+              assert page.nav == ["/", "/research/", "/projects/", "/cv/", "/publications/"], (name, page.nav)
+              for href in page.links:
+                  url = urlsplit(href)
+                  if url.netloc and url.netloc != "lyrrrrrr.github.io":
+                      continue
+                  if url.scheme and url.scheme not in ("http", "https"):
+                      continue
+                  target = new / url.path.lstrip("/") if url.path else new / name
+                  if target.is_dir():
+                      target = target / "index.html"
+                  assert target.is_file(), (name, href, str(target))
+                  if url.fragment:
+                      other = Page()
+                      other.feed(target.read_text(encoding="utf-8"))
+                      assert url.fragment in other.ids, (name, href)
+              print("Navigation and local links valid:", name)
+          
+          for name in ("feed.xml", "sitemap.xml", "robots.txt", "redirects.json"):
+              if (old / name).is_file():
+                  assert (new / name).is_file(), f"Missing generated endpoint {name}"
+                  print("Generated endpoint retained:", name)
+          
+          css = "assets/css/research-home.css"
+          old_css = (old / css).read_text(encoding="utf-8")
+          new_css = (new / css).read_text(encoding="utf-8")
+          unused = ".cv section .text-link { display: inline-block; margin-top: .65rem; }\n"
+          assert old_css.count(unused) == 1
+          assert old_css.replace(unused, "") == new_css
+          assert 'class="text-link"' not in (new / "cv/index.html").read_text(encoding="utf-8").split("<main",1)[1].split("</main>",1)[0]
+          print("All active CSS preserved")
+          
+          candidate = pathlib.Path("candidate")
+          page = candidate / "_pages/about.md"
+          source = page.read_text(encoding="utf-8")
+          assert source.count("portrait: # Set to the path of an uploaded portrait.") == 1
+          page.write_text(source.replace("portrait: # Set to the path of an uploaded portrait.", "portrait: /qa-portrait.png"), encoding="utf-8")
+          (candidate / "qa-portrait.png").write_bytes(base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aFz8AAAAASUVORK5CYII="))
+          
+          PY
+      - name: Build configured portrait
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./candidate
+          destination: ./portrait-site
+      - name: Verify configured portrait
+        run: |
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          class Images(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.images = []
+              def handle_starttag(self, tag, attributes):
+                  if tag == "img":
+                      self.images.append(dict(attributes))
+          page = Images()
+          page.feed(Path("portrait-site/index.html").read_text(encoding="utf-8"))
+          assert page.images == [{"src": "/qa-portrait.png", "alt": "Portrait of Yiran Liu", "width": "640", "height": "800", "decoding": "async"}], page.images
+          assert Path("portrait-site/qa-portrait.png").is_file()
+          print("Portrait replacement works with correct URL, alternative text and dimensions")
+          
+          PY
