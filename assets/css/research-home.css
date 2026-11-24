@@ -28,10 +28,9 @@ sub { line-height: 0; }
 .site-header { border-bottom: 1px solid var(--line); }
 .site-header-inner { min-height: 4.5rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .45rem 1.2rem; padding-block: .6rem; }
 .wordmark { font: 1.45rem var(--serif); color: var(--ink); text-decoration: none; }
-.site-header nav { display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: clamp(1.1rem, 3vw, 2.05rem); margin-inline-start: auto; }
+.site-header nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: clamp(1.1rem, 3vw, 2.05rem); margin-inline-start: auto; }
 .site-header nav a { font-size: .9rem; font-weight: 600; text-decoration: none; }
 .site-header nav a:hover, .site-header nav [aria-current] { text-decoration: underline; }
-.site-header nav .home-link { padding: .12rem .5rem; border-radius: 4px; background: var(--accent); color: white; }
 
 .hero {
   padding-block: clamp(3.25rem, 7vw, 5.5rem);
