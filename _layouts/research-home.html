@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% if page.url != '/' %}{{ page.title | escape }} �� {% endif %}{{ site.title | escape }}</title>
+  <title>{% if page.url != '/' %}{{ page.title | escape }} - {% endif %}{{ site.title | escape }}</title>
   <meta name="description" content="{{ page.description | default: site.description | escape }}">
   <link rel="canonical" href="{{ page.url | absolute_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/research-home.css' | relative_url }}">
@@ -24,7 +24,7 @@
   </main>
   <footer class="shell site-footer">
     <span>{{ site.name | escape }}</span>
-    {% if site.author.github %}<a href="https://github.com/{{ site.author.github | url_encode }}">GitHub �J</a>{% endif %}
+    {% if site.author.github %}<a href="https://github.com/{{ site.author.github | url_encode }}">GitHub</a>{% endif %}
   </footer>
 </body>
 </html>
