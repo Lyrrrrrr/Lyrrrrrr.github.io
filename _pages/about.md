@@ -2,6 +2,7 @@
 layout: research-home
 title: Home
 permalink: /
+portrait: # Set to the path of an uploaded portrait.
 redirect_from:
   - /about/
   - /about.html
@@ -18,6 +19,13 @@ redirect_from:
     </div>
   </div>
   <aside class="affiliations" aria-label="Academic affiliations">
+    <figure class="portrait"{% unless page.portrait %} aria-hidden="true"{% endunless %}>
+      {% if page.portrait %}
+        <img src="{{ page.portrait | relative_url }}" alt="Portrait of {{ site.name | escape }}" width="640" height="800" decoding="async">
+      {% else %}
+        <span class="label">Portrait</span>
+      {% endif %}
+    </figure>
     <div>
       <p class="label">Current position</p>
       <p><strong>Research Assistant</strong><br>Tsung-Dao Lee Institute<br>Shanghai Jiao Tong University</p>

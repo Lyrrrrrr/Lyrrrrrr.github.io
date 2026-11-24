@@ -41,6 +41,18 @@ sub { line-height: 0; }
 .button { display: inline-flex; align-items: center; gap: .65rem; padding: .65rem .95rem; color: white; background: var(--accent); border-radius: 4px; text-decoration: none; }
 .button:hover { background: #152d4a; }
 .affiliations { border-left: 2px solid var(--line); padding-left: 1.25rem; }
+.portrait {
+  width: min(100%, 9rem);
+  aspect-ratio: 4 / 5;
+  margin: 0 0 1.2rem;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--wash);
+}
+.portrait img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .affiliations > div + div { margin-top: 1.2rem; }
 .affiliations .label { margin-bottom: .18rem; }
 .affiliations p:not(.label) { color: var(--muted); font-size: .91rem; }
