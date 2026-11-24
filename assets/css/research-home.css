@@ -73,6 +73,7 @@ sub { line-height: 0; }
 .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 1.15rem; }
 .project { border: 1px solid var(--line); border-radius: 6px; padding: clamp(1.25rem, 3.3vw, 2rem); }
 .project p { margin-top: .65rem; }
+.related-page { margin-top: 1.25rem; }
 
 .cv, .publications { max-width: 43rem; }
 .cv, .publications, .projects { padding-top: clamp(3rem, 8vw, 6rem); }
