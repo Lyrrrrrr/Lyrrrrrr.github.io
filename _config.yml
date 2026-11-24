@@ -186,7 +186,6 @@ exclude:
   - _pages/non-menu-page.md
   - _pages/page-archive.html
   - _pages/portfolio.html
-  - _pages/publications.html
   - _pages/sitemap.md
   - _pages/tag-archive.html
   - _pages/talkmap.html
