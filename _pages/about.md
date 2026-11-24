@@ -10,18 +10,24 @@ redirect_from:
 
 <section class="hero" aria-labelledby="intro-heading">
   <aside class="profile" aria-label="Academic profile">
-    <div>
-      <figure class="portrait"{% unless page.portrait %} aria-hidden="true"{% endunless %}>
-        {% if page.portrait %}
-          <img src="{{ page.portrait | relative_url }}" alt="Portrait of {{ site.name | escape }}" width="640" height="800" decoding="async">
-        {% else %}
-          <span class="label">Portrait</span>
-        {% endif %}
-      </figure>
-      <nav class="profile-links" aria-label="Profile links">
-        <a href="{{ '/cv/' | relative_url }}">CV</a>
-        {% if site.author.github %}<a href="https://github.com/{{ site.author.github | url_encode }}">GitHub</a>{% endif %}
-      </nav>
+    <figure class="portrait"{% unless page.portrait %} aria-hidden="true"{% endunless %}>
+      {% if page.portrait %}
+        <img src="{{ page.portrait | relative_url }}" alt="Portrait of {{ site.name | escape }}" width="640" height="800" decoding="async">
+      {% else %}
+        <span class="label">Portrait</span>
+      {% endif %}
+    </figure>
+    <nav class="profile-links" aria-label="Profile links">
+      <a href="{{ '/cv/' | relative_url }}">CV</a>
+      {% if site.author.github %}<a href="https://github.com/{{ site.author.github | url_encode }}">GitHub</a>{% endif %}
+    </nav>
+  </aside>
+  <div>
+    <p class="label">Experimental condensed matter physics</p>
+    <h1 id="intro-heading">Superconductivity<br>and magnetism</h1>
+    <p class="intro">I am {{ site.name | escape }}, a research assistant at the Tsung-Dao Lee Institute. I study superconductivity and magnetism in quantum materials using muon spectroscopy and computational modelling.</p>
+    <div class="actions">
+      <a class="button" href="#research">View research</a>
     </div>
     <div class="affiliations">
       <div>
@@ -32,14 +38,6 @@ redirect_from:
         <p class="label">Education</p>
         <p><strong>MPhys (Hons) Physics</strong><br>The University of Manchester</p>
       </div>
-    </div>
-  </aside>
-  <div>
-    <p class="label">Experimental condensed matter physics</p>
-    <h1 id="intro-heading">Superconductivity<br>and magnetism</h1>
-    <p class="intro">I am {{ site.name | escape }}, a research assistant at the Tsung-Dao Lee Institute. I study superconductivity and magnetism in quantum materials using muon spectroscopy and computational modelling.</p>
-    <div class="actions">
-      <a class="button" href="#research">View research</a>
     </div>
   </div>
 </section>
