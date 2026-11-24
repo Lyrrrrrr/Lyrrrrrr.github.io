@@ -15,6 +15,7 @@
       <a class="wordmark" href="{{ '/' | relative_url }}">{{ site.name | escape }}</a>
       <nav aria-label="Primary navigation">
         <a href="{{ '/' | relative_url }}#research">Research</a>
+        <a href="{{ '/projects/' | relative_url }}"{% if page.url == '/projects/' %} aria-current="page"{% endif %}>Projects</a>
         <a href="{{ '/cv/' | relative_url }}"{% if page.url == '/cv/' %} aria-current="page"{% endif %}>CV</a>
         <a href="{{ '/publications/' | relative_url }}"{% if page.url == '/publications/' %} aria-current="page"{% endif %}>Publications</a>
       </nav>
