@@ -37,7 +37,7 @@ redirect_from:
     <h1 id="intro-heading">Superconductivity<br>and magnetism</h1>
     <p class="intro">I am {{ site.name | escape }}, a research assistant at the Tsung-Dao Lee Institute. I study superconductivity and magnetism in quantum materials using muon spectroscopy and computational modelling.</p>
     <div class="actions">
-      <a class="button" href="#research">Research Interest</a>
+      <a class="button" href="{{ '/research/' | relative_url }}">Research Interest</a>
     </div>
   </div>
 </section>
