@@ -1,64 +1,28 @@
 ---
-layout: archive
-title: "CV"
+layout: research-home
+title: CV
+description: Education and research experience in condensed matter physics.
 permalink: /cv/
-author_profile: true
 redirect_from:
   - /resume
 ---
 
-{% include base_path %}
+<article class="cv">
+  <p class="label">{{ site.name | escape }}</p>
+  <h1>Curriculum vitae</h1>
 
-Education
-======
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-* M.S. in Jekyll, GitHub University, 2014
-* B.S. in GitHub, GitHub University, 2012
+  <section aria-labelledby="experience-heading">
+    <h2 id="experience-heading">Research experience</h2>
+    <h3>Research Assistant</h3>
+    <p class="cv-detail">Tsung-Dao Lee Institute, Shanghai Jiao Tong University �� 2026�Cpresent</p>
+    <p>Muon spin rotation and relaxation data analysis for studies of local magnetism in superconducting materials.</p>
+  </section>
 
-Work experience
-======
-* Spring 2024: Academic Pages Collaborator
-  * GitHub University
-  * Duties includes: Updates and improvements to template
-  * Supervisor: The Users
-
-* Fall 2015: Research Assistant
-  * GitHub University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
-
-* Summer 2015: Research Assistant
-  * GitHub University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
-  
-Skills
-======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
-
-Publications
-======
-  <ul>{% for post in site.publications reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Talks
-======
-  <ul>{% for post in site.talks reversed %}
-    {% include archive-single-talk-cv.html  %}
-  {% endfor %}</ul>
-  
-Teaching
-======
-  <ul>{% for post in site.teaching reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Service and leadership
-======
-* Currently signed in to 43 different slack teams
+  <section aria-labelledby="education-heading">
+    <h2 id="education-heading">Education</h2>
+    <h3>MPhys (Hons) Physics</h3>
+    <p class="cv-detail">The University of Manchester �� 2026</p>
+    <p>Research projects on Ising superconductivity in monolayer MoS? and upper critical fields in As<sub>x</sub>P<sub>1?x</sub> thin layers.</p>
+    <a class="text-link" href="{{ '/' | relative_url }}#projects-heading">View MPhys projects <span aria-hidden="true">�J</span></a>
+  </section>
+</article>
