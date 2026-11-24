@@ -70,9 +70,9 @@ sub { line-height: 0; }
 .current-project-title h3 { margin-top: .4rem; font-size: clamp(1.55rem, 3.1vw, 2.1rem); }
 .current-project > p, .project p, .cv section p { color: var(--muted); }
 .projects h2 { margin-top: 1.8rem; font-size: 2rem; }
-.project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 1.15rem; }
-.project { border: 1px solid var(--line); border-radius: 6px; padding: clamp(1.25rem, 3.3vw, 2rem); }
-.project p { margin-top: .65rem; }
+.projects .project { margin-top: 1.25rem; }
+.projects .project + .project { margin-top: 1.75rem; }
+.project p { max-width: 68ch; margin-top: .5rem; }
 .related-page { margin-top: 1.25rem; }
 
 .cv, .publications { max-width: 43rem; }
@@ -89,8 +89,8 @@ sub { line-height: 0; }
 
 @media (max-width: 720px) {
   .shell { width: min(100% - 2rem, 68rem); }
-  .site-header nav { gap: .7rem; }
-  .hero, .current-project, .project-grid { grid-template-columns: 1fr; }
+  .site-header nav { gap: .45rem .55rem; }
+  .hero, .current-project { grid-template-columns: 1fr; }
   .hero { gap: 1.5rem; padding-block: 2.25rem 3rem; }
   .hero h1 { font-size: clamp(2rem, 10.25vw, 3.5rem); }
   .portrait { width: min(100%, 5.75rem); }

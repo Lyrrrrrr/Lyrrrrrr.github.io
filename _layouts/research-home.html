@@ -14,6 +14,7 @@
     <div class="shell site-header-inner">
       <a class="wordmark" href="{{ '/' | relative_url }}">{{ site.name | escape }}</a>
       <nav aria-label="Primary navigation">
+        <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Home</a>
         <a href="{{ '/' | relative_url }}#research">Research</a>
         <a href="{{ '/projects/' | relative_url }}"{% if page.url == '/projects/' %} aria-current="page"{% endif %}>Projects</a>
         <a href="{{ '/cv/' | relative_url }}"{% if page.url == '/cv/' %} aria-current="page"{% endif %}>CV</a>
